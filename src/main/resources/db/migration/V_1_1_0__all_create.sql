@@ -88,6 +88,7 @@ CREATE TABLE project.material
         constraint material_job_id_fkey
             references project.job,
     level  varchar NOT NULL,
+    material_type varchar,
     links  jsonb
 );
 
@@ -171,11 +172,11 @@ INSERT INTO project.login(id, username, password)
 values (3, 'testName3', '123456');
 
 INSERT INTO project.user(id, name, surname, role, job_id, mentor_id, archive)
-values (1, 'testUserName1', 'testSurname1', 'testRole', 1, null, false);
+values (1, 'testUserName1', 'testSurname1', 'mentor', 1, null, false);
 INSERT INTO project.user(id, name, surname, role, job_id, mentor_id, archive)
-values (2, 'testUserName2', 'testSurname2', 'testRole', 1, 1, false);
+values (2, 'testUserName2', 'testSurname2', 'user', 1, 1, false);
 INSERT INTO project.user(id, name, surname, role, job_id, mentor_id, archive)
-values (3, 'testUserName3', 'testSurname3', 'testRole', 2, 2, false);
+values (3, 'testUserName3', 'testSurname3', 'testRole', 2, 1, false);
 
 COMMIT;
 
