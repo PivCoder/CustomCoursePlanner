@@ -1,0 +1,28 @@
+server:
+  port: 8088
+
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5433/CustomCoursePlanner
+    username: postgres
+    password: 1
+
+  flyway:
+    locations:
+      - classpath:db/migration
+      - classpath:db/callback
+    baseline-on-migrate: true
+
+  jpa:
+    generate-ddl: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        ddl.auto: false
+        show_sql: true
+        format_sql: true
+        default_schema: "project"
+  jackson:
+    serialization:
+      fail-on-empty-beans: false
