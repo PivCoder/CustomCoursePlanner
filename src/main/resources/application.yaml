@@ -8,6 +8,11 @@ spring:
     username: postgres
     password: 1
 
+  security:
+    user:
+      name: admin
+      password: 1
+
   flyway:
     locations:
       - classpath:db/migration

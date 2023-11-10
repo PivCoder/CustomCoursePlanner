@@ -27,12 +27,12 @@ public class CourseRestController {
         return courseService.getCourseById(id).orElseThrow(ElementNotFoundException::new);
     }
 
-    @PutMapping("/courses{id}")
+    @PutMapping(value = "course/{id}", produces = "application/json")
     Course edit(@RequestBody Course course, @PathVariable Long id){
         return courseService.editCourse(course, id);
     }
 
-    @PostMapping("/courses")
+    @PostMapping(value = "course/{id}", produces = "application/json")
     Course create(@RequestBody Course course){
         return courseService.addCourse(course);
     }
