@@ -30,7 +30,7 @@ public class User extends AbstractEntity {
     private Role role;
 
     @Column
-    private boolean archived;
+    private boolean isArchived;
 
     @JsonBackReference
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
@@ -58,7 +58,7 @@ public class User extends AbstractEntity {
         this.surname = surname;
         this.role = role;
         this.mentor = mentor;
-        this.archived = archived;
+        this.isArchived = archived;
     }
 
     @Override
@@ -81,7 +81,7 @@ public class User extends AbstractEntity {
                 ", surname='" + surname + '\'' +
                 ", role=" + role +
                 ", mentor=" + mentor +
-                ", archived=" + archived +
+                ", archived=" + isArchived +
                 '}';
     }
 }

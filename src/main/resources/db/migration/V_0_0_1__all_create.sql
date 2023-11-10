@@ -35,7 +35,7 @@ CREATE TABLE project.user
     mentor_id numeric
         constraint user_mentor_id_fkey
             references project.user,
-    archive   boolean
+    is_archived   boolean
 );
 
 ALTER TABLE project.user
@@ -83,13 +83,13 @@ DROP TABLE IF EXISTS project.material CASCADE;
 
 CREATE TABLE project.material
 (
-    id     numeric not null primary key,
-    job_id numeric
+    id            numeric not null primary key,
+    job_id        numeric
         constraint material_job_id_fkey
             references project.job,
-    level  varchar NOT NULL,
+    level         varchar NOT NULL,
     material_type varchar,
-    links  jsonb
+    links         jsonb
 );
 
 create index IF NOT EXISTS material_level_index
@@ -109,12 +109,12 @@ DROP TABLE IF EXISTS project.task CASCADE;
 CREATE TABLE project.task
 (
     id         numeric      not null primary key,
-    start_data date         NOT NULL,
+    start_date date         NOT NULL,
     name       varchar(150) NOT NULL,
     course_id  numeric
         constraint task_course_id_fkey
             references project.course,
-    end_data   date         NOT NULL,
+    end_date   date         NOT NULL,
     file_link  varchar,
     is_done    boolean
 );
@@ -171,21 +171,21 @@ values (2, 'testName2', '123456');
 INSERT INTO project.login(id, username, password)
 values (3, 'testName3', '123456');
 
-INSERT INTO project.user(id, name, surname, role, job_id, mentor_id, archive)
-values (1, 'testUserName1', 'testSurname1', 'mentor', 1, null, false);
-INSERT INTO project.user(id, name, surname, role, job_id, mentor_id, archive)
-values (2, 'testUserName2', 'testSurname2', 'user', 1, 1, false);
-INSERT INTO project.user(id, name, surname, role, job_id, mentor_id, archive)
-values (3, 'testUserName3', 'testSurname3', 'testRole', 2, 1, false);
+INSERT INTO project.user(id, name, surname, role, job_id, mentor_id, is_archived)
+values (1, 'testUserName1', 'testSurname1', 'MENTOR', 1, null, false);
+INSERT INTO project.user(id, name, surname, role, job_id, mentor_id, is_archived)
+values (2, 'testUserName2', 'testSurname2', 'USER', 1, 1, false);
+INSERT INTO project.user(id, name, surname, role, job_id, mentor_id, is_archived)
+values (3, 'testUserName3', 'testSurname3', 'GUEST', 2, null, false);
 
 COMMIT;
 
 INSERT INTO project.target(id, name, is_hard_skill, is_soft_skill, level, is_archived)
-values (1, 'testTarget1', true, false, 'testLevel', false);
+values (1, 'testTarget1', true, false, 'BASIC', false);
 INSERT INTO project.target(id, name, is_hard_skill, is_soft_skill, level, is_archived)
-values (2, 'testTarget2', false, true, 'testLevel', false);
+values (2, 'testTarget2', false, true, 'BASIC', false);
 INSERT INTO project.target(id, name, is_hard_skill, is_soft_skill, level, is_archived)
-values (3, 'testTarget3', true, false, 'testLevel', true);
+values (3, 'testTarget3', true, false, 'BASIC', true);
 
 INSERT INTO project.job_target(job_id, target_id)
 values (1, 1);
@@ -203,34 +203,40 @@ INSERT INTO project.job_target(job_id, target_id)
 values (3, 2);
 
 INSERT INTO project.skill(id, user_id, target_id, job_id, level)
-values (1, 1, 1, 1, 'testLevel');
+values (1, 1, 1, 1, 'BASIC');
 INSERT INTO project.skill(id, user_id, target_id, job_id, level)
-values (2, 1, 2, 1, 'testLevel');
+values (2, 1, 2, 1, 'BASIC');
 INSERT INTO project.skill(id, user_id, target_id, job_id, level)
-values (3, 2, 2, 2, 'testLevel');
+values (3, 2, 2, 2, 'BASIC');
 INSERT INTO project.skill(id, user_id, target_id, job_id, level)
-values (4, 2, 3, 2, 'testLevel');
+values (4, 2, 3, 2, 'BASIC');
 INSERT INTO project.skill(id, user_id, target_id, job_id, level)
-values (5, 3, 1, 3, 'testLevel');
+values (5, 3, 1, 3, 'BASIC');
 INSERT INTO project.skill(id, user_id, target_id, job_id, level)
-values (6, 3, 2, 3, 'testLevel');
+values (6, 3, 2, 3, 'BASIC');
 INSERT INTO project.skill(id, user_id, target_id, job_id, level)
-values (7, 3, 3, 3, 'testLevel');
+values (7, 3, 3, 3, 'BASIC');
 
 INSERT INTO project.material(id, job_id, level, links)
-values (1, 1, 'testLevel', '{
-  "a": "1",
-  "b": "1"
+values (1, 1, 'BASIC', '{
+  "linkSet": [
+    "a",
+    "b"
+  ]
 }');
 INSERT INTO project.material(id, job_id, level, links)
-values (2, 2, 'testLevel', '{
-  "a": "2",
-  "b": "2"
+values (2, 2, 'BASIC', '{
+  "linkSet": [
+    "a",
+    "b"
+  ]
 }');
 INSERT INTO project.material(id, job_id, level, links)
-values (3, 3, 'testLevel', '{
-  "a": "3",
-  "b": "3"
+values (3, 3, 'BASIC', '{
+  "linkSet": [
+    "a",
+    "b"
+  ]
 }');
 
 INSERT INTO project.course(id, name, description)
@@ -247,17 +253,17 @@ values (2, 2);
 INSERT INTO project.material_course(course_id, material_id)
 values (3, 3);
 
-INSERT INTO project.task(id, start_data, name, course_id, end_data, file_link, is_done)
+INSERT INTO project.task(id, start_date, name, course_id, end_date, file_link, is_done)
 values (1, to_date('01/08/2023', 'dd/mm/yyyy'), 'testName1', 1, to_date('31/08/2023', 'dd/mm/yyyy'), 'C:\TEST1', false);
-INSERT INTO project.task(id, start_data, name, course_id, end_data, file_link, is_done)
+INSERT INTO project.task(id, start_date, name, course_id, end_date, file_link, is_done)
 values (2, to_date('10/09/2023', 'dd/mm/yyyy'), 'testName2', 2, to_date('10/10/2023', 'dd/mm/yyyy'), 'C:\TEST2', false);
-INSERT INTO project.task(id, start_data, name, course_id, end_data, file_link, is_done)
+INSERT INTO project.task(id, start_date, name, course_id, end_date, file_link, is_done)
 values (3, to_date('01/08/2023', 'dd/mm/yyyy'), 'testName3', 3, to_date('25/08/2023', 'dd/mm/yyyy'), 'C:\TEST3', false);
-INSERT INTO project.task(id, start_data, name, course_id, end_data, file_link, is_done)
+INSERT INTO project.task(id, start_date, name, course_id, end_date, file_link, is_done)
 values (4, to_date('12/07/2023', 'dd/mm/yyyy'), 'testName4', 2, to_date('25/09/2023', 'dd/mm/yyyy'), 'C:\TEST4', false);
-INSERT INTO project.task(id, start_data, name, course_id, end_data, file_link, is_done)
+INSERT INTO project.task(id, start_date, name, course_id, end_date, file_link, is_done)
 values (5, to_date('01/11/2023', 'dd/mm/yyyy'), 'testName5', 3, to_date('25/11/2023', 'dd/mm/yyyy'), 'C:\TEST5', false);
-INSERT INTO project.task(id, start_data, name, course_id, end_data, file_link, is_done)
+INSERT INTO project.task(id, start_date, name, course_id, end_date, file_link, is_done)
 values (6, to_date('01/08/2023', 'dd/mm/yyyy'), 'testName6', 1, to_date('25/08/2023', 'dd/mm/yyyy'), 'C:\TEST6', false);
 
 INSERT INTO project.user_task(user_id, task_id)

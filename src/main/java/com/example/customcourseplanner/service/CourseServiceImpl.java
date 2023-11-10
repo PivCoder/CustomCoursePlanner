@@ -33,9 +33,18 @@ public class CourseServiceImpl implements CourseService {
         return courseRepository.findById(id);
     }
 
+    //TODO не уверен в правильности
     @Override
-    public Course editCourse(Course course) {
-        return courseRepository.save(course);
+    public Course editCourse(Course course, long id) {
+        return courseRepository.findById(id)
+                .map(course1 -> {
+                    course.setName(course.getName());
+                    course.setDescription(course.getDescription());
+                    course.setMaterials(course.getMaterials()); //особенно тут
+                    course.setTaskList(course.getTaskList()); //и тут
+                    return courseRepository.save(course);
+                })
+                .orElseGet(() -> courseRepository.save(course));
     }
 
     @Override
