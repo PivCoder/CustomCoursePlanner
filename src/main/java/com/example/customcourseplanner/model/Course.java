@@ -1,6 +1,7 @@
 package com.example.customcourseplanner.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -26,6 +27,13 @@ public class Course extends AbstractEntity{
     @JsonBackReference
     @OneToMany(mappedBy = "course", fetch = FetchType.LAZY)
     private List<Task> taskList;
+
+    @JsonIgnore
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "material_course",
+            joinColumns = { @JoinColumn(name = "course_id") },
+            inverseJoinColumns = { @JoinColumn(name = "material_id") })
+    List<Material> materials;
 
     public Course(String name, String description) {
         this.name = name;

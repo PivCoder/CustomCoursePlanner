@@ -37,6 +37,9 @@ public class Target extends AbstractEntity{
     @OneToMany(mappedBy = "target", fetch = FetchType.LAZY)
     private List<Skill> skillLists;
 
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "targets")
+    List<Job> jobs;
+
     public Target(String name, boolean isHardSkill, boolean isSoftSkill, Level level, boolean isArchived) {
         this.name = name;
         this.isHardSkill = isHardSkill;

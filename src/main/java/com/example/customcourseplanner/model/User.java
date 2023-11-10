@@ -2,6 +2,7 @@ package com.example.customcourseplanner.model;
 
 import com.example.customcourseplanner.model.enums.Role;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -12,8 +13,8 @@ import lombok.Setter;
 import java.util.List;
 import java.util.Objects;
 
-@Entity(name = "login")
-@Table(name = "login")
+@Entity(name = "user")
+@Table(name = "user")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -27,6 +28,9 @@ public class User extends AbstractEntity {
 
     @Enumerated(EnumType.STRING)
     private Role role;
+
+    @Column
+    private boolean archived;
 
     @JsonBackReference
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
@@ -42,8 +46,12 @@ public class User extends AbstractEntity {
     @JoinColumn(name = "mentor_id")
     private User mentor;
 
-    @Column
-    private boolean archived;
+    @JsonIgnore
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "user_task",
+            joinColumns = { @JoinColumn(name = "user_id") },
+            inverseJoinColumns = { @JoinColumn(name = "task_id") })
+    List<Task> tasks;
 
     public User(String name, String surname, Role role, User mentor, boolean archived) {
         this.name = name;

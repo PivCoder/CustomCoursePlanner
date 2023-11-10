@@ -8,10 +8,11 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
-@Entity(name = "skill")
-@Table(name = "skill")
+@Entity(name = "task")
+@Table(name = "task")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -36,6 +37,9 @@ public class Task extends AbstractEntity {
 
     @Column
     private boolean isDone;
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "tasks")
+    List<User> users;
 
     public Task(Date startDate, String name, Date endDate, String fileLink, boolean isDone) {
         this.startDate = startDate;
