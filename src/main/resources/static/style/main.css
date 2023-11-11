@@ -1,0 +1,149 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #161616;
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+}
+
+.sidebar {
+    background-color: #282828;
+    color: #fff;
+    width: 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    height: 100vh;
+    transition: width 0.3s;
+    border-right: 2px solid #161616;
+    /* Добавьте обводку справа */
+}
+
+
+
+
+.icons {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    flex-grow: 1;
+}
+
+.icon {
+    display: flex;
+    align-items: center;
+    vertical-align: middle;
+    font-size: 35px;
+    margin: 10px;
+    transition: padding 0.3s;
+    cursor: pointer;
+}
+
+
+.icon span {
+    font-family: 'Roboto', sans-serif;
+    margin-left: 10px;
+    transition: opacity 0.1s;
+    font-size: 15px;
+    /* Добавьте анимацию для плавного появления/скрытия текста */
+}
+
+/* Скрыть текст по умолчанию */
+.icon span.hidden {
+    opacity: 0;
+}
+
+.content {
+    flex-grow: 1;
+    padding: 30px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.mainBody {
+    width: 100vw;
+    height: 100vh;
+}
+
+.headbar {
+    height: 10vh;
+    display: flex;
+
+}
+
+.headbar .headname {
+    margin-left: 15%;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 30px;
+}
+
+.headbar .headicon {}
+
+.tOne {}
+
+.tTwo {}
+
+.tThree {}
+
+.tFour {}
+
+
+/*общие настройки сетки*/
+.grid-container {
+    display: grid;
+    justify-content: center;
+    grid-template-columns: repeat(2, 45%);
+    grid-template-rows: repeat(2, 45%);
+    grid-gap: 20px;
+    /* Опционально, чтобы добавить отступ между ячейками */
+    width: 100%; /* Чтобы контейнер сетки занимал всю ширину экрана */
+    /* Вычтите 20 пикселей для сдвига вправо */
+    height: 90vh;
+    /* Чтобы контейнер сетки занимал всю высоту экрана */
+    /* Добавьте отступ слева, чтобы сдвинуть контент вправо */
+}
+
+
+
+/*внешний вид ячеек*/
+.grid-container>* {
+    /*фоновый цвет*/
+    background-color: #282828;
+    /*скругление углов*/
+    border-radius: 25px;
+}
+
+/* Медиа-запрос для мобильных устройств */
+@media (max-width: 768px) {
+    .grid-container {
+        width: calc(100% - 60px); 
+        /* Дополнительное уменьшение сдвига вправо на маленьких экранах */
+        /* Уберем отступ слева на маленьких экранах */
+        grid-template-columns: repeat(1, 90%);
+        /* Один столбец на маленьких экранах */
+        grid-template-rows: auto;
+        /* Высота строк автоматически */
+        margin-left: 60px; 
+    }
+
+    .grid-container>* {
+        border-radius: 10px;
+        /* Дополнительное уменьшение радиуса скругления углов */
+    }
+
+    :root {
+        --sidebar-width: 250px;
+    }
+    body{
+        overflow:scroll;
+    }
+    .sidebar {
+        position:fixed;
+    }
+}

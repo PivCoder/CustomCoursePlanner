@@ -35,16 +35,16 @@ public class CourseServiceImpl implements CourseService {
 
     //TODO не уверен в правильности
     @Override
-    public Course editCourse(Course course, long id) {
+    public Course editCourse(Course newCourse, long id) {
         return courseRepository.findById(id)
-                .map(course1 -> {
+                .map(course -> {
                     course.setName(course.getName());
                     course.setDescription(course.getDescription());
                     course.setMaterials(course.getMaterials()); //особенно тут
                     course.setTaskList(course.getTaskList()); //и тут
                     return courseRepository.save(course);
                 })
-                .orElseGet(() -> courseRepository.save(course));
+                .orElseGet(() -> courseRepository.save(newCourse));
     }
 
     @Override
