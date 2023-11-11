@@ -9,6 +9,6 @@ public interface TargetService {
     Target addTarget(Target target);
     void deleteTargetById(long id);
     Optional<Target> getTargetById(long id);
-    Target editTarget(Target target);
+    Target editTarget(Target target, long id);
     List<Target> getAllTargets();
 }

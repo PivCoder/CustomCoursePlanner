@@ -34,8 +34,14 @@ public class JobServiceImpl implements JobService {
     }
 
     @Override
-    public Job editJob(Job job) {
-        return jobRepository.save(job);
+    public Job editJob(Job newJob, long id) {
+        return jobRepository.findById(id)
+                .map(job -> {
+                    job.setName(job.getName());
+                    job.setDescription(job.getDescription());
+                    return jobRepository.save(job);
+                })
+                .orElseGet(() -> jobRepository.save(newJob));
     }
 
     @Override

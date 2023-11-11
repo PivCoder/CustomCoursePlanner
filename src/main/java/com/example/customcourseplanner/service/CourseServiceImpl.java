@@ -1,5 +1,6 @@
 package com.example.customcourseplanner.service;
 
+import com.example.customcourseplanner.exceptions.ElementNotFoundException;
 import com.example.customcourseplanner.model.Course;
 import com.example.customcourseplanner.repositoryes.CourseRepository;
 import com.example.customcourseplanner.service.api.CourseService;
@@ -33,15 +34,13 @@ public class CourseServiceImpl implements CourseService {
         return courseRepository.findById(id);
     }
 
-    //TODO не уверен в правильности
+    //TODO не уверен в правильности в остальных сервисах также
     @Override
     public Course editCourse(Course newCourse, long id) {
         return courseRepository.findById(id)
                 .map(course -> {
                     course.setName(course.getName());
                     course.setDescription(course.getDescription());
-                    course.setMaterials(course.getMaterials()); //особенно тут
-                    course.setTaskList(course.getTaskList()); //и тут
                     return courseRepository.save(course);
                 })
                 .orElseGet(() -> courseRepository.save(newCourse));

@@ -9,6 +9,6 @@ public interface JobService {
     Job addJob(Job job);
     void deleteJobById(long id);
     Optional<Job> getJobById(long id);
-    Job editJob(Job job);
+    Job editJob(Job job, long id);
     List<Job> getAllJobs();
 }

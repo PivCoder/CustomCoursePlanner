@@ -34,8 +34,17 @@ public class TargetServiceImpl implements TargetService {
     }
 
     @Override
-    public Target editTarget(Target target) {
-        return targetRepository.save(target);
+    public Target editTarget(Target newTarget, long id) {
+        return targetRepository.findById(id)
+                .map(target -> {
+                    target.setName(target.getName());
+                    target.setHardSkill(target.isHardSkill());
+                    target.setSoftSkill(target.isSoftSkill());
+                    target.setLevel(target.getLevel());
+                    target.setArchived(target.isArchived());
+                    return targetRepository.save(target);
+                })
+                .orElseGet(() -> targetRepository.save(newTarget));
     }
 
     @Override

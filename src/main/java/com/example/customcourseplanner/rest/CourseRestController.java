@@ -24,7 +24,8 @@ public class CourseRestController {
 
     @GetMapping("/courses{id}")
     Course getById(@PathVariable Long id){
-        return courseService.getCourseById(id).orElseThrow(ElementNotFoundException::new);
+        return courseService.getCourseById(id)
+                .orElseThrow(ElementNotFoundException::new);
     }
 
     @PutMapping(value = "course/{id}", produces = "application/json")
