@@ -34,8 +34,16 @@ public class MaterialServiceImpl implements MaterialService {
     }
 
     @Override
-    public Material editMaterial(Material material) {
-        return materialRepository.save(material);
+    public Material editMaterial(Material newMaterial, long id) {
+        return materialRepository.findById(id)
+                .map(material -> {
+                    material.setJob(newMaterial.getJob());
+                    material.setLevel(newMaterial.getLevel());
+                    material.setMaterialType(newMaterial.getMaterialType());
+                    material.setLinks(newMaterial.getLinks());
+                    return materialRepository.save(material);
+                })
+                .orElseGet(() -> materialRepository.save(newMaterial));
     }
 
     @Override

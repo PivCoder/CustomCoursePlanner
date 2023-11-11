@@ -34,8 +34,18 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public Task editTask(Task task) {
-        return taskRepository.save(task);
+    public Task editTask(Task newTask, long id) {
+        return taskRepository.findById(id)
+                .map(task -> {
+                    task.setStartDate(newTask.getStartDate());
+                    task.setName(newTask.getName());
+                    task.setCourse(newTask.getCourse());
+                    task.setEndDate(newTask.getEndDate());
+                    task.setFileLink(newTask.getFileLink());
+                    task.setDone(newTask.isDone());
+                    return taskRepository.save(task);
+                })
+                .orElseGet(() -> taskRepository.save(newTask));
     }
 
     @Override

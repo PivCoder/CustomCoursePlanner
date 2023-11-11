@@ -34,8 +34,16 @@ public class SkillServiceImpl implements SkillService {
     }
 
     @Override
-    public Skill editSkill(Skill skill) {
-        return skillRepository.save(skill);
+    public Skill editSkill(Skill newSkill, long id) {
+        return skillRepository.findById(id)
+                .map(skill -> {
+                    skill.setUser(newSkill.getUser());
+                    skill.setTarget(newSkill.getTarget());
+                    skill.setJob(newSkill.getJob());
+                    skill.setLevel(newSkill.getLevel());
+                    return skillRepository.save(skill);
+                })
+                .orElseGet(() -> skillRepository.save(newSkill));
     }
 
     @Override

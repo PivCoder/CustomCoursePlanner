@@ -37,9 +37,9 @@ public class JobServiceImpl implements JobService {
     public Job editJob(Job newJob, long id) {
         return jobRepository.findById(id)
                 .map(job -> {
-                    job.setName(job.getName());
-                    job.setDescription(job.getDescription());
-                    return jobRepository.save(job);
+                    job.setName(newJob.getName());
+                    job.setDescription(newJob.getDescription());
+                    return jobRepository.save(newJob);
                 })
                 .orElseGet(() -> jobRepository.save(newJob));
     }

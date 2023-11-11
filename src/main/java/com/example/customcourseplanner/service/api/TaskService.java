@@ -9,6 +9,6 @@ public interface TaskService {
     Task addTask(Task task);
     void deleteTaskById(long id);
     Optional<Task> getTaskById(long id);
-    Task editTask(Task task);
+    Task editTask(Task task, long id);
     List<Task> getAllTasks();
 }

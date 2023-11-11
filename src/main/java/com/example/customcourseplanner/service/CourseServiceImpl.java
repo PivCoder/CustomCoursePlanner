@@ -39,8 +39,8 @@ public class CourseServiceImpl implements CourseService {
     public Course editCourse(Course newCourse, long id) {
         return courseRepository.findById(id)
                 .map(course -> {
-                    course.setName(course.getName());
-                    course.setDescription(course.getDescription());
+                    course.setName(newCourse.getName());
+                    course.setDescription(newCourse.getDescription());
                     return courseRepository.save(course);
                 })
                 .orElseGet(() -> courseRepository.save(newCourse));

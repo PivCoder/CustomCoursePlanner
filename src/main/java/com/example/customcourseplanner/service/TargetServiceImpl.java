@@ -37,11 +37,11 @@ public class TargetServiceImpl implements TargetService {
     public Target editTarget(Target newTarget, long id) {
         return targetRepository.findById(id)
                 .map(target -> {
-                    target.setName(target.getName());
-                    target.setHardSkill(target.isHardSkill());
-                    target.setSoftSkill(target.isSoftSkill());
-                    target.setLevel(target.getLevel());
-                    target.setArchived(target.isArchived());
+                    target.setName(newTarget.getName());
+                    target.setHardSkill(newTarget.isHardSkill());
+                    target.setSoftSkill(newTarget.isSoftSkill());
+                    target.setLevel(newTarget.getLevel());
+                    target.setArchived(newTarget.isArchived());
                     return targetRepository.save(target);
                 })
                 .orElseGet(() -> targetRepository.save(newTarget));
