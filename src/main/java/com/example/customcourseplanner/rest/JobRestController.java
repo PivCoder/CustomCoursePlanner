@@ -1,6 +1,5 @@
 package com.example.customcourseplanner.rest;
 
-import com.example.customcourseplanner.model.Course;
 import com.example.customcourseplanner.model.Job;
 import com.example.customcourseplanner.service.JobServiceImpl;
 import org.springframework.web.bind.annotation.GetMapping;

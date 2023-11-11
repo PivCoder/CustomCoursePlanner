@@ -7,6 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class LoginController {
     @GetMapping("/")
     public String showLogin(){
-        return "templates/login.html";
+        return "login";
     }
 }

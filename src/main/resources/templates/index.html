@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="../static/style/main.css">
+    <link rel="stylesheet" th:href="@{/style/main.css}">
+    <title>Start</title>
 </head>
 
 <body>
@@ -59,7 +60,7 @@
             </div>
         </div>
     </div>
-    <script src="../static/js/effects.js"></script>
+    <script th:src="@{/js/effects.js}"></script>
 </body>
 
 </html>
