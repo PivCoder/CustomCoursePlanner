@@ -1,2 +1,2 @@
-# OWAFH-team-dynamite-wolves
-Our repository for hackaton 
+# Custom course planner
+Pet-project 
